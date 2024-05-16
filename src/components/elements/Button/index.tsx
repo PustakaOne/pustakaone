@@ -11,25 +11,28 @@ export const Button: React.FC<ButtonProps> = ({
   const getStyle = () => {
     switch (variant) {
       case 'primary':
-        return 'bg-[#FF8024] rounded-full py-2 px-6 font-bold';
+        return 'bg-[#FF8024]';
       case 'secondary':
-        return '';
+        return 'bg-white';
       case 'tertiary':
-        return '';
+        return 'bg-transparent border border-white';
     }
   };
 
   const getSize = () => {
     switch (size) {
       case 'sm':
-        return '';
+        return 'px-5 py-1';
       case 'md':
-        return '';
+        return 'px-9 py-2.5';
     }
   };
 
   return (
-    <button className={`${getStyle()} ${getSize()} ${className}`} {...props}>
+    <button
+      className={`font-semibold rounded-full ${getStyle()} ${getSize()} ${className}`}
+      {...props}
+    >
       {children}
     </button>
   );

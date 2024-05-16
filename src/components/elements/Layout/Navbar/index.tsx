@@ -19,7 +19,9 @@ export const Navbar: React.FC = () => {
   return (
     <nav className="bg-[#1B1B1B] py-4 w-full text-white">
       <div className="container flex justify-between items-center">
-        <Image src={'/images/logo.png'} alt="Logo" width={200} height={30} />
+        <Link href={'/'}>
+          <Image src={'/images/logo.png'} alt="Logo" width={200} height={30} />
+        </Link>
         <div className="relative">
           <form onSubmit={handleSearch}>
             <input
@@ -46,7 +48,7 @@ export const Navbar: React.FC = () => {
             Toko
           </Link>
           <Link href={'/register'}>
-            <Button>Daftar</Button>
+            <Button size="sm">Daftar</Button>
           </Link>
         </div>
       </div>

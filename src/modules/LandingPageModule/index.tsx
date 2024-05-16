@@ -8,8 +8,10 @@ import {
   RegisterNow,
   Testimony,
 } from './section';
+import { customFetch } from '@/components/utils';
 
-export const LandingPageModule: React.FC = () => {
+export const LandingPageModule: React.FC = async () => {
+  //   const books = await customFetch('bookshop', '/books');
   return (
     <>
       <Header />
