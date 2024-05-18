@@ -31,9 +31,9 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`scroll-smooth scroll-pt-[100px] ${inika.variable} ${roboto.variable}`}
+      className={`scroll-smooth scroll-pt-[100px]  ${inika.variable} ${roboto.variable}`}
     >
-      <body className="min-h-screen overflow-x-hidden font-Roboto bg-white">
+      <body className="min-h-screen overflow-x-hidden font-Roboto text-black bg-white">
         <Layout>{children}</Layout>
       </body>
     </html>
