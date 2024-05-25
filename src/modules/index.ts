@@ -7,3 +7,4 @@ export * from './LoginModule';
 export * from './ProfileModule';
 export * from './CartModule';
 export * from './RegisterModule';
+export * from './HistoryModule';
