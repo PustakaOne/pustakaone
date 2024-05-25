@@ -36,6 +36,9 @@ interface HistoryRecord {
   paidAt: string;
 }
 
+const BASE_URL_LOCAL = "http://localhost:8080";
+const BASE_URL = "http://localhost:8080";
+
 export const HistoryModule: React.FC = () => {
   const [history, setHistory] = useState<HistoryRecord[]>([]);
 
@@ -47,8 +50,8 @@ export const HistoryModule: React.FC = () => {
 
   const fetchHistoryData = async () => {
     try {
-      `${process.env.NEXT_PUBLIC_ADMIN_URL_LOCAL}/update-payment`
-      const response = await fetch(`http://localhost:8080/shop/cart/history/2`, {cache:"no-store"});
+      // ${process.env.NEXT_PUBLIC_ADMIN_URL_LOCAL}
+      const response = await fetch(`${BASE_URL_LOCAL}/shop/cart/history/2`, {cache:"no-store"});
       console.log("fadfa");
       console.log(response);
       if (!response.ok) {
