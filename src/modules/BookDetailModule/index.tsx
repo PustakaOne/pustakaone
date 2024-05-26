@@ -1,12 +1,17 @@
 import React from 'react';
-import { RemoveMeSection } from './section';
-import { EXAMPLE_MESSAGE } from './constant';
+import { BookBuy, BookDetail } from './section';
 
 export const BookDetailModule: React.FC = () => {
   return (
     <>
-      <RemoveMeSection message={EXAMPLE_MESSAGE} />
-      {/* <AnotherSection /> */}
+      <div className='content flex flex-wrap py-5'>
+        <div className='w-1/3'>
+          <BookBuy />
+        </div>
+        <div className='w-2/3'>
+          <BookDetail />
+        </div>
+      </div>
     </>
   );
 };
