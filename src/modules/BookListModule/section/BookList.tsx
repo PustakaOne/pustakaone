@@ -9,7 +9,7 @@ export const BookList: React.FC = () => {
       <div className="container flex flex-col items-left gap-8">
         <div className="flex flex-wrap justify-left gap-5">
           {BOOKS.map((book, index) => (
-            <Link href={`./${book.bookId.toString()}`} key={index}>
+            <Link href={`./shop/${book.bookId.toString()}`} key={index}>
               <BookCard
                 title={book.title}
                 author={book.author}
