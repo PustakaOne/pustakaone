@@ -36,8 +36,9 @@ export const LoginModule: React.FC = () => {
         throw new Error('Login gagal!');
       }
       const responseJson = await response.json();
-      if (responseJson.role === 'ADMIN') {
-        return router.push('/admin');
+      if (responseJson?.role === 'ADMIN') {
+        router.push('/admin');
+        return;
       }
       setUser(responseJson);
       setCookie('user', responseJson);
