@@ -6,12 +6,14 @@ import { useAuthContext } from '@/components/contexts/AuthContext';
 import { BookCartProps } from './interface';
 import Image from 'next/image';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 export const CartModule: React.FC = () => {
   const { user } = useAuthContext();
 
   const [books, setBooks] = useState<BookCartProps[]>([]);
   const [subTotal, setSubTotal] = useState<number>(0);
+  const [bookCartId, setBookCartId] = useState<number>();
 
   const getUserCart = async () => {
     if (!user) return;
@@ -22,6 +24,20 @@ export const CartModule: React.FC = () => {
 
     setBooks(responseJson.bookCarts);
     setSubTotal(responseJson.totalPrice);
+    setBookCartId(responseJson.id);
+  };
+
+  const deleteBookFromCart = async (bookId: number) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BOOKSHOP_URL}/shop/cart/${user?.id}/${bookId}`,
+      {
+        method: 'DELETE',
+      },
+    );
+
+    const responseJson = await response.json();
+
+    getUserCart();
   };
 
   useEffect(() => {
@@ -52,6 +68,16 @@ export const CartModule: React.FC = () => {
                     key={book.book.bookId}
                   >
                     <div className="flex items-center gap-2">
+                      <div>
+                        <button
+                          onClick={() => {
+                            deleteBookFromCart(book.id);
+                          }}
+                          className="bg-red-500 w-8 h-8 rounded-full text-4xl flex justify-center items-center  text-white"
+                        >
+                          -
+                        </button>
+                      </div>
                       <div className="relative w-32 aspect-[3/4]">
                         <Image
                           src={book.book.coverUrl}
