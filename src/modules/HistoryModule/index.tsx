@@ -1,4 +1,5 @@
 "use client"
+import { useAuthContext } from '@/components/contexts/AuthContext';
 import React, { useEffect, useState } from 'react';
 
 // Define the types for the history data
@@ -41,34 +42,42 @@ const BASE_URL = "http://localhost:8080";
 
 export const HistoryModule: React.FC = () => {
   const [history, setHistory] = useState<HistoryRecord[]>([]);
-
-
+  const { user } = useAuthContext();
+  
   // useEffect(() => {
-  //   // Set dummy data for testing
-  //   setHistory(dummyData);
-  // }, []);
-  const userId = 2;
+    //   // Set dummy data for testing
+    //   setHistory(dummyData);
+    // }, []);
+    const userId = 2;
+    
+    const fetchHistoryData = async () => {
+      console.log(typeof user);
+      if(user){
+        try {
+          // ${process.env.NEXT_PUBLIC_ADMIN_URL_LOCAL}
+          console.log(user?.fullName);
+          console.log(user?.id);
+          const response = await fetch(`${process.env.NEXT_PUBLIC_BOOKSHOP_URL}/shop/cart/history/${user?.id}`, {cache:"no-store"});
+          // const response = await fetch(`${BASE_URL_LOCAL}/shop/cart/history/${userId}`, {cache:"no-store"});
+          console.log("fadfa");
+          console.log(response);
+          if (!response.ok) {
+            throw new Error('Failed to fetch history data');
+          }
+          const data: HistoryRecord[] = await response.json();
+          setHistory(data);
+        } catch (error) {
+          console.error('Error fetching history data:', error);
+        }
 
-  const fetchHistoryData = async () => {
-    try {
-      // ${process.env.NEXT_PUBLIC_ADMIN_URL_LOCAL}
-      const response = await fetch(`${BASE_URL_LOCAL}/shop/cart/history/${userId}`, {cache:"no-store"});
-      console.log("fadfa");
-      console.log(response);
-      if (!response.ok) {
-        throw new Error('Failed to fetch history data');
       }
-      const data: HistoryRecord[] = await response.json();
-      setHistory(data);
-    } catch (error) {
-      console.error('Error fetching history data:', error);
-    }
   };
 
+  
   useEffect(() => {
-
+    console.log("testt ",user);
     fetchHistoryData();
-  }, []);
+  }, [user]);
 
 
   return (
