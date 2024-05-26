@@ -1,16 +1,17 @@
 "use client"
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuthContext } from '@/components/contexts/AuthContext';
 
 const PayModule = () => {
   const router = useRouter();
-
+  const {user} = useAuthContext();
+  console.log(user?.id);
   const BASE_URL_LOCAL = "http://localhost:8080";
   const BASE_URL = "http://localhost:8080";
 
   const handleCancel = async () => {
-    const userId = 1;
-    const res = await fetch(`${BASE_URL_LOCAL}/shop/cart/cancel/${userId}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BOOKSHOP_URL}/shop/cart/cancel/${user?.id}`, {
       method: 'POST',
     });
     if (res.ok) {
@@ -21,8 +22,7 @@ const PayModule = () => {
   };
 
   const handlePay = async () => {
-    const userId = 1;
-    const res = await fetch(`${BASE_URL_LOCAL}/shop/cart/pay/${userId}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BOOKSHOP_URL}/shop/cart/pay/${user?.id}`, {
       method: 'POST',
     });
     if (res.ok) {
