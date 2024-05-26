@@ -16,14 +16,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Create .env file
+        run: |
+          echo "NEXT_PUBLIC_IDENTITY_URL=${{ secrets.NEXT_PUBLIC_IDENTITY_URL }}" >> .env
+          echo "NEXT_PUBLIC_BOOKSHOP_URL=${{ secrets.NEXT_PUBLIC_BOOKSHOP_URL }}" >> .env
+          echo "NEXT_PUBLIC_ADMIN_URL=${{ secrets.NEXT_PUBLIC_ADMIN_URL }}" >> .env
       - name: Docker login
         env:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: echo "$DOCKER_PASSWORD" | docker login -u ${{ secrets.REGISTRY_USER }} --password-stdin docker.io
-
       - name: Set Docker BuildKit
         run: export DOCKER_BUILDKIT=1
-
       - name: Build and Push Docker Image
         run: |
           docker build -t ${{ secrets.REGISTRY_USER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }} .
@@ -36,12 +39,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Install SSH client
         run: sudo apt-get install openssh-client
-      - name: create ssh key
+      - name: Create SSH key
         run: echo "${{ secrets.SSH_KEY }}" > ssh-key.pem && cat ssh-key.pem
-      - name: update permission
+      - name: Update permission
         run: chmod 400 ssh-key.pem
       - name: Deploy to GCP
         run: |
