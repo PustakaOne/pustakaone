@@ -24,7 +24,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
       setIsAuthenticated(false);
       setUser(null);
     } else {
-      setUser(user as any as UserInterface);
+      setUser(JSON.parse(user as any));
       setIsAuthenticated(true);
     }
   }
