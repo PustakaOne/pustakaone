@@ -93,14 +93,14 @@ export const HistoryModule: React.FC = () => {
           <tbody>
             {history.map((record) => (
               <tr key={record.id}>
-                <td className="px-4 py-5 border-b text-center">${record.totalPrice}</td>
+                <td className="px-4 py-5 border-b text-center">Rp {record.totalPrice}</td>
                 <td className="px-4 py-5 border-b text-center">{new Date(record.paidAt).toLocaleString()}</td>
                 <td className="px-4 py-5 border-b text-center">
                   {record.bookCarts.map((cart) => (
                     <div key={cart.id} className="mb-2 p-2 border border-gray-200">
                       <div><strong>Title:</strong> {cart.book.title}</div>
                       <div><strong>Author:</strong> {cart.book.author}</div>
-                      <div><strong>Price:</strong> ${cart.book.price}</div>
+                      <div><strong>Price:</strong> Rp {cart.book.price}</div>
                       <div><strong>Publisher:</strong> {cart.book.publisher}</div>
                       <div><strong>ISBN:</strong> {cart.book.isbn}</div>
                       <div><strong>Category:</strong> {cart.book.category}</div>
