@@ -18,7 +18,6 @@ export const LoginModule: React.FC = () => {
 
   const loginBtnHandler = async () => {
     try {
-      console.log(process.env.NEXT_PUBLIC_IDENTITY_URL);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_IDENTITY_URL}/auth/authenticate`,
         {
@@ -37,6 +36,9 @@ export const LoginModule: React.FC = () => {
         throw new Error('Login gagal!');
       }
       const responseJson = await response.json();
+      if (responseJson.role === 'ADMIN') {
+        return router.push('/admin');
+      }
       setUser(responseJson);
       setCookie('user', responseJson);
       router.push('/');

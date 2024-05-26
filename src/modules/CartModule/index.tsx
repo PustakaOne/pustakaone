@@ -19,7 +19,7 @@ export const CartModule: React.FC = () => {
       `${process.env.NEXT_PUBLIC_BOOKSHOP_URL}/shop/cart/${user.id}`,
     );
     const responseJson = await response.json();
-    console.log(responseJson);
+
     setBooks(responseJson.bookCarts);
     setSubTotal(responseJson.totalPrice);
   };
@@ -35,31 +35,42 @@ export const CartModule: React.FC = () => {
           <h2 className="font-bold font-inika text-2xl">Keranjang</h2>
           <div />
           <div>
-            {books.map((book) => {
-              return (
-                <div
-                  className="flex w-full justify-between items-center"
-                  key={book.book.bookId}
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="relative w-32 aspect-[3/4]">
-                      <Image
-                        src={book.book.coverUrl}
-                        alt={book.book.title}
-                        fill
-                        className="object-cover"
-                      />
+            {books.length === 0 ? (
+              <div className="flex flex-col items-center gap-2 py-10">
+                <span className="text-black/60 text-2xl font-inika font-bold italic">
+                  Kosong bro!
+                </span>
+                <Link href={'/shop'}>
+                  <Button size="sm">Belanja</Button>
+                </Link>
+              </div>
+            ) : (
+              books.map((book) => {
+                return (
+                  <div
+                    className="flex w-full justify-between items-center"
+                    key={book.book.bookId}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="relative w-32 aspect-[3/4]">
+                        <Image
+                          src={book.book.coverUrl}
+                          alt={book.book.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <span>{book.book.title}</span>
+                        <span>by {book.book.author}</span>
+                        <span>x{book.amount}</span>
+                      </div>
                     </div>
-                    <div className="flex flex-col">
-                      <span>{book.book.title}</span>
-                      <span>by {book.book.author}</span>
-                      <span>x{book.amount}</span>
-                    </div>
+                    <span>Rp{book.amount * book.book.price}</span>
                   </div>
-                  <span>Rp{book.amount * book.book.price}</span>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         </div>
         <div>
@@ -71,7 +82,7 @@ export const CartModule: React.FC = () => {
               <span>Rp{subTotal}</span>
             </div>
             <Link href={'/pay'}>
-              <Button>Checkout</Button>
+              <Button disabled={books.length === 0}>Checkout</Button>
             </Link>
           </div>
         </div>
