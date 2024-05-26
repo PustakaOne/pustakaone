@@ -1,3 +1,6 @@
-export interface RemoveMeSectionProps {
-  message: string;
+export interface ReviewCardProps {
+  author: number;
+  rating: number;
+  content: string;
+  date: string;
 }
