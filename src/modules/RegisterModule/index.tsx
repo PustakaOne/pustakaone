@@ -47,9 +47,8 @@ export const RegisterModule: React.FC = () => {
         throw new Error('Register gagal!');
       }
       const responseJson = await response.json();
-
-      setUser(JSON.parse(responseJson));
-      setCookie('user', JSON.parse(responseJson));
+      setUser(responseJson);
+      setCookie('user', responseJson);
       router.push('/');
     } catch (err: any) {
       toast.error(err.message);

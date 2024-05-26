@@ -9,7 +9,6 @@ export const BookCard: React.FC<BookCardProps> = ({
   imageUrl,
 }) => {
   const formattedPrice = new Intl.NumberFormat('id-ID').format(price);
-
   return (
     <div className="bg-white w-48 aspect-[9/16] p-2.5 drop-shadow-lg flex flex-col gap-1">
       <div className="relative bg-gray-300 flex items-center justify-center aspect-[3/4] w-full">
