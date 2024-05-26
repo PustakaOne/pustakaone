@@ -37,8 +37,8 @@ export const LoginModule: React.FC = () => {
         throw new Error('Login gagal!');
       }
       const responseJson = await response.json();
-      setUser(responseJson);
-      setCookie('user', responseJson);
+      setUser(JSON.parse(responseJson));
+      setCookie('user', JSON.parse(responseJson));
       router.push('/');
     } catch (err: any) {
       toast.error(err.message);
