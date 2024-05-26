@@ -5,7 +5,8 @@ import { Button } from '@/components';
 
 export const AdminModule: React.FC = () => {
   const [logs, setLogs] = useState([])
-  const [carts, setCarts] = useState([])
+  const [carts, getCarts] = useState([])
+  const [users, getUsers] = useState([])
 
   const finishCart = async (id:string) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL_LOCAL}/update-payment`, {
@@ -26,10 +27,11 @@ export const AdminModule: React.FC = () => {
     await finishCart(id)
     await getLogData()
     await getCartData()
+    await getUsersData()
   }
 
   const getLogData = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL_LOCAL}/logs`, {cache:"no-store"});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/logs`, {cache:"no-store"});
     if (!res.ok) {
       throw new Error('Failed to fetch data');
     }
@@ -38,20 +40,32 @@ export const AdminModule: React.FC = () => {
   }
   
   const getCartData = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL_LOCAL}/payments`, {cache:"no-store"});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/payments`, {cache:"no-store"});
     if (!res.ok) {
       throw new Error('Failed to fetch data');
     }
 
     const response  = await res.json()
-    setCarts(response)
+    getCarts(response)
+  }
+
+  const getUsersData = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/users`, {cache:"no-store"});
+    if (!res.ok) {
+      throw new Error('Failed to fetch data');
+    }
+
+    const response  = await res.json()
+    console.log(response)
+    getUsers(response)
   }
 
   useEffect(()=> {
     getLogData();
     getCartData();
+    getUsersData();
   }, []) 
-  // console.log(carts)
+
 
   return (
     <>
@@ -77,6 +91,32 @@ export const AdminModule: React.FC = () => {
                   <td className="px-4 py-5 border-b text-center">{log.id}</td>
                   <td className="px-4 py-5 border-b text-center">{log.action}</td>
                   <td className="px-4 py-5 border-b text-center">{log.date}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="container flex flex-col items-center gap-8">
+        <div className="flex flex-col items-center gap-1">
+          <h2 className="text-3xl font-inika font-bold">
+            Daftar User Terdaftar:
+          </h2>
+        </div>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-300">
+          <thead>
+            <tr>
+              <th className="px-4 py-5 border-b text-center">Nama</th>
+              <th className="px-4 py-5 border-b text-center">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+              {users.map((user:{fullName:string, email:string}) => (
+                <tr key={user.fullName}>
+                  <td className="px-4 py-5 border-b text-center">{user.fullName}</td>
+                  <td className="px-4 py-5 border-b text-center">{user.email}</td>
                 </tr>
               ))}
           </tbody>
