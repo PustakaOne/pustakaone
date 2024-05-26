@@ -21,7 +21,7 @@ export const Recommendations: React.FC<RecommendationsProps> = ({ books }) => {
               title={book.title}
               author={book.author}
               price={book.price}
-              imageUrl={book.coverUrl}
+              imageUrl={"https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg"}
             />
           ))}
         </div>
