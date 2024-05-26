@@ -4,11 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { FormEvent, useState } from 'react';
 import { Button } from '@/components';
-import { Search } from '@/components/icons';
+import { Cart, Profile, Search } from '@/components/icons';
 import { useRouter } from 'next/navigation';
+import { useAuthContext } from '@/components/contexts/AuthContext';
 
 export const Navbar: React.FC = () => {
   const router = useRouter();
+  const { user } = useAuthContext();
+
   const [search, setSearch] = useState<string>('');
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
@@ -47,9 +50,24 @@ export const Navbar: React.FC = () => {
           <Link href={'/shop'} className="font-inika font-bold">
             Toko
           </Link>
-          <Link href={'/register'}>
-            <Button size="sm">Daftar</Button>
-          </Link>
+          {!!user ? (
+            <>
+              <Link href={'/cart'}>
+                <Cart
+                  size="w-10 h-10"
+                  fill="fill-[#FF8024]"
+                  stroke="stroke-[#FF8024]"
+                />
+              </Link>
+              <Link href={'/profile'}>
+                <Profile size="w-10 h-10" fill="fill-[#FF8024]" />
+              </Link>
+            </>
+          ) : (
+            <Link href={'/register'}>
+              <Button size="sm">Daftar</Button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>
