@@ -1,4 +1,3 @@
-import { Star } from '@/components/icons/Star';
 import Image from 'next/image';
 import React from 'react';
 import { BookCardProps } from './interface';
@@ -6,7 +5,6 @@ import { BookCardProps } from './interface';
 export const BookCard: React.FC<BookCardProps> = ({
   title,
   author,
-  rating,
   price,
   imageUrl,
 }) => {
@@ -32,11 +30,6 @@ export const BookCard: React.FC<BookCardProps> = ({
         <div className="flex flex-col">
           <span className="font-inika text-lg font-bold">{title}</span>
           {author && <span className="text-sm">by {author}</span>}
-        </div>
-        <div className="flex">
-          {Array.from({ length: rating }, (_, index) => (
-            <Star key={index} size="w-6 h-6" fill="fill-[#FF8024]" />
-          ))}
         </div>
         {price && (
           <span className="font-bold text-2xl">Rp{formattedPrice}</span>
