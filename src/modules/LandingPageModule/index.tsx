@@ -8,16 +8,27 @@ import {
   RegisterNow,
   Testimony,
 } from './section';
-import { customFetch } from '@/components/utils';
+import { BookProps } from './interface';
 
 export const LandingPageModule: React.FC = async () => {
-  //   const books = await customFetch('bookshop', '/books');
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BOOKSHOP_URL}/books`,
+    {
+      cache: 'no-cache',
+    },
+  );
+
+  const books: BookProps[] = await response.json();
+
+  const recomendationBooks = books
+    .sort((a, b) => a.price - b.price)
+    .slice(0, 5);
   return (
     <>
       <Header />
-      <Recommendations />
-      <Category />
-      <BookOfTheMonth />
+      <Recommendations books={recomendationBooks} />
+      {/* <Category />
+      <BookOfTheMonth /> */}
       <Reasons />
       <Testimony />
       <RegisterNow />
