@@ -8,3 +8,5 @@ export * from './Shield';
 export * from './ThumbUp';
 export * from './Truck';
 export * from './Star';
+export * from './Profile';
+export * from './Cart';
