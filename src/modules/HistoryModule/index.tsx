@@ -47,11 +47,12 @@ export const HistoryModule: React.FC = () => {
   //   // Set dummy data for testing
   //   setHistory(dummyData);
   // }, []);
+  const userId = 2;
 
   const fetchHistoryData = async () => {
     try {
       // ${process.env.NEXT_PUBLIC_ADMIN_URL_LOCAL}
-      const response = await fetch(`${BASE_URL_LOCAL}/shop/cart/history/2`, {cache:"no-store"});
+      const response = await fetch(`${BASE_URL_LOCAL}/shop/cart/history/${userId}`, {cache:"no-store"});
       console.log("fadfa");
       console.log(response);
       if (!response.ok) {
