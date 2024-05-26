@@ -1,7 +1,7 @@
 import { Star } from '@/components/icons/Star';
-import Image from 'next/image';
 import React from 'react';
 import { ReviewCardProps } from '../interface';
+import { format } from 'date-fns';
 
 export const ReviewCard: React.FC<ReviewCardProps> = ({
   author,
@@ -20,15 +20,19 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
         <div>
           <p className="font-bold">{author}</p>
           <div className="flex items-center">
-            {Array.from({ length: rating }, (_, index) => (
-                <Star key={index} size="w-6 h-6" fill="fill-[#FF8024]" />
+            {Array.from({ length: 5 }, (_, index) => (
+              <Star
+              key={index}
+              size="w-6 h-6"
+              fill={index < rating ? 'fill-[#FF8024]' : 'fill-[#5E5E5E]'}
+              />
             ))}
           </div>
         </div>
       </div>
       <p className="mb-2">{content}</p>
       <p className="text-gray-500 text-sm">
-        {new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} &middot; {new Date(date).toLocaleDateString()}
+        {format(new Date(date), 'HH:mm')} &middot; {new Date(date).toLocaleDateString()}
       </p>
     </div>
   );
