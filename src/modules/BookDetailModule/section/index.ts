@@ -1,1 +1,2 @@
-export * from './RemoveMeSection';
+export * from './BookDetail';
+export * from './BookBuy';
