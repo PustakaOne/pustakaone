@@ -10,6 +10,9 @@ export const ProfileModule: React.FC = () => {
   const { setUser } = useAuthContext();
   const router = useRouter();
 
+  const historyBtnHandler = () => {
+    router.push('/history');
+  };
   const logoutBtnHandler = () => {
     deleteCookie('user');
     setUser(null);
@@ -18,7 +21,10 @@ export const ProfileModule: React.FC = () => {
 
   return (
     <>
-      <section className="min-h-screen flex justify-center items-center">
+      <section className="min-h-screen flex flex-col justify-center items-center gap-4">
+        <Button onClick = {historyBtnHandler} className="bg-[#007BFF] text-white">
+          History
+        </Button>
         <Button onClick={logoutBtnHandler} className="bg-[#FF3407] text-white">
           Logout
         </Button>

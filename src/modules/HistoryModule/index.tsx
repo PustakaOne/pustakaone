@@ -48,18 +48,13 @@ export const HistoryModule: React.FC = () => {
     //   // Set dummy data for testing
     //   setHistory(dummyData);
     // }, []);
-    const userId = 2;
     
     const fetchHistoryData = async () => {
-      console.log(typeof user);
       if(user){
         try {
           // ${process.env.NEXT_PUBLIC_ADMIN_URL_LOCAL}
-          console.log(user?.fullName);
-          console.log(user?.id);
           const response = await fetch(`${process.env.NEXT_PUBLIC_BOOKSHOP_URL}/shop/cart/history/${user?.id}`, {cache:"no-store"});
           // const response = await fetch(`${BASE_URL_LOCAL}/shop/cart/history/${userId}`, {cache:"no-store"});
-          console.log("fadfa");
           console.log(response);
           if (!response.ok) {
             throw new Error('Failed to fetch history data');
@@ -75,7 +70,6 @@ export const HistoryModule: React.FC = () => {
 
   
   useEffect(() => {
-    console.log("testt ",user);
     fetchHistoryData();
   }, [user]);
 
