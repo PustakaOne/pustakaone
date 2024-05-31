@@ -49,7 +49,11 @@ export const RegisterModule: React.FC = () => {
       const responseJson = await response.json();
       setUser(responseJson);
       setCookie('user', responseJson);
-      router.push('/');
+      if (responseJson.role === 'ADMIN') {
+        router.push('/admin');
+      } else {
+        router.push('/');
+      }
     } catch (err: any) {
       toast.error(err.message);
     } finally {
