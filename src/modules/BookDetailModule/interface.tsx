@@ -3,7 +3,7 @@ export interface ReviewCardProps {
   rating: number;
   content: string;
   date: string;
-};
+}
 
 export type BookDetailProps = {
   bookId: number;
@@ -19,8 +19,9 @@ export type BookDetailProps = {
   category: string;
   pages: number;
   lang: string;
-}
+};
 
 export type BookProps = {
   book: BookDetailProps;
+  bookId: string;
 };
