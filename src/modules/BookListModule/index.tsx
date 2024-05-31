@@ -10,7 +10,12 @@ export const BookListModule: React.FC = async () => {
     },
   );
 
-  const books: BookProps[] = await response.json();
+  let books: BookProps[];
+  if (response.ok) {
+    books = await response.json();
+  } else {
+    books = [];
+  }
 
   return (
     <>
@@ -21,7 +26,7 @@ export const BookListModule: React.FC = async () => {
             <Filter />
           </div>
           <div className="w-2/3">
-            <BookList books={books}/>
+            <BookList books={books} />
           </div>
         </div>
       </div>
