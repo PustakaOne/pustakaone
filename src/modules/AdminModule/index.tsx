@@ -113,7 +113,7 @@ export const AdminModule: React.FC = () => {
 
   const createBook = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/admin/create-book`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/create-book`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
