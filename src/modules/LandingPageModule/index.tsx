@@ -20,9 +20,12 @@ export const LandingPageModule: React.FC = async () => {
 
   const books: BookProps[] = await response.json();
 
-  const recomendationBooks = books
-    .sort((a, b) => a.price - b.price)
-    .slice(0, 5);
+  let recomendationBooks: BookProps[];
+  if (response.ok) {
+    recomendationBooks = books.sort((a, b) => a.price - b.price).slice(0, 5);
+  } else {
+    recomendationBooks = [];
+  }
   return (
     <>
       <Header />
